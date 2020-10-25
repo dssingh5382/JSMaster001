@@ -1,0 +1,86 @@
+stages:
+  Init:
+    stepConditions:
+      slackSendNotification:
+        configKeys:
+          - 'channel'
+  'Pull-Request Voting': {}
+  Build: {}
+  'Additional Unit Tests':
+    stepConditions:
+      batsExecuteTests:
+        filePattern: '**/*.bats'
+      karmaExecuteTests:
+        filePattern: '**/karma.conf.js'
+  Integration: {}
+  Acceptance:
+    stepConditions:
+      multicloudDeploy:
+        configKeys:
+          - 'cfTargets'
+          - 'neoTargets'
+      cloudFoundryDeploy:
+        configKeys:
+          - 'cfSpace'
+          - 'cloudFoundry/space'
+      healthExecuteCheck:
+        configKeys:
+          - 'testServerUrl'
+      newmanExecute:
+        filePatternFromConfig: 'newmanCollection'
+        configKeys:
+          - 'testRepository'
+      uiVeri5ExecuteTests:
+        filePattern: '**/conf.js'
+        configKeys:
+          - 'testRepository'
+      npmExecuteEndToEndTests:
+        configKeys:
+          - 'appUrls'
+  Security:
+    stepConditions:
+      checkmarxExecuteScan:
+        configKeys:
+          - 'checkmarxCredentialsId'
+      fortifyExecuteScan:
+        configKeys:
+          - 'fortifyCredentialsId'
+      whitesourceExecuteScan:
+        configKeys:
+          - 'userTokenCredentialsId'
+          - 'whitesource/userTokenCredentialsId'
+          - 'whitesourceUserTokenCredentialsId'
+  Performance: {}
+  Compliance: {}
+  Promote:
+    stepConditions:
+      containerPushToRegistry:
+        configKeys:
+          - 'dockerRegistryUrl'
+  Release:
+    stepConditions:
+      multicloudDeploy:
+        configKeys:
+          - 'cfTargets'
+          - 'neoTargets'
+      cloudFoundryDeploy:
+        configKeys:
+          - 'cfSpace'
+          - 'cloudFoundry/space'
+      neoDeploy:
+        configKeys:
+          - 'neo/account'
+      healthExecuteCheck:
+        configKeys:
+          - 'testServerUrl'
+      npmExecuteEndToEndTests:
+        configKeys:
+          - 'appUrls'
+      githubPublishRelease:
+        configKeys:
+          - 'githubTokenCredentialsId'
+  'Post Actions':
+    stepConditions:
+      slackSendNotification:
+        configKeys:
+          - 'channel'

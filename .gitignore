@@ -1,0 +1,42 @@
+.idea/
+bin
+.settings
+logs
+reports
+*.class
+*.iml
+.classpath
+.project
+*~
+.vscode
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+target/
+targets/
+documentation/docs-gen
+
+consumer-test/**/workspace
+
+*.code-workspace
+.factorypath
+
+debug.test
+/cache/protecode
+
+
+# build artifacts
+/piper
+/piper.exe
+/piper_master
+/piper_master.exe
+/jenkins-library
+/jenkins-library.exe
+
+# piper binary outputs
+.pipeline/commonPipelineEnvironment/
+.pipeline/influx/
+*errorDetails.json
+*_links.json
+*_reports.json

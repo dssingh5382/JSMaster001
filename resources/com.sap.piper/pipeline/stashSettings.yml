@@ -1,0 +1,28 @@
+Init:
+  unstash: []
+  stashes:
+  - name: "source"
+    includes: "**/*"
+    excludes: ".pipeline/**"
+
+'Pull-Request Voting':
+  unstash:
+  - source
+  stashes: []
+
+Build:
+  unstash:
+  - source
+  stashes: []
+
+Acceptance:
+  unstash:
+  - buildResult
+  - deployDescriptor
+  stashes: []
+
+Release:
+  unstash:
+  - buildResult
+  - deployDescriptor
+  stashes: []
